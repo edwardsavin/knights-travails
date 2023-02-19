@@ -1,19 +1,3 @@
-function createGameBoard(boardSize) {
-  const adjacencyList = new Map();
-
-  for (let i = 0; i < boardSize; i++) {
-    for (let j = 0; j < boardSize; j++) {
-      const vertex = i * boardSize + j;
-      const neighbors = getLegalMoves(i, j, boardSize).map(
-        (move) => move[0] * boardSize + move[1]
-      );
-      adjacencyList.set(vertex, neighbors);
-    }
-  }
-
-  return adjacencyList;
-}
-
 // Get all legal moves for a knight on a chess board
 function getLegalMoves(x, y, boardSize) {
   const legalMoves = [
@@ -34,13 +18,23 @@ function getLegalMoves(x, y, boardSize) {
   });
 }
 
-const gameBoard = createGameBoard(8);
+function createGameBoard(boardSize) {
+  const adjacencyList = new Map();
 
-const knight = {
-  x: 0,
-  y: 0,
-  moves: 0,
-};
+  for (let i = 0; i < boardSize; i++) {
+    for (let j = 0; j < boardSize; j++) {
+      const vertex = i * boardSize + j;
+      const neighbors = getLegalMoves(i, j, boardSize).map(
+        (move) => move[0] * boardSize + move[1]
+      );
+      adjacencyList.set(vertex, neighbors);
+    }
+  }
+
+  return adjacencyList;
+}
+
+const gameBoard = createGameBoard(8);
 
 // Show the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way
 function knightMoves(start, end) {
